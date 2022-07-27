@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 18
+targetCompatibility = 18
+
+application {
+    mainClassName = 'echoserver.HelloWorld'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+checkstyle {
+    toolVersion '8.40'
+    maxWarnings = 0
+    ignoreFailures false
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = false
+        html.required = true
+    }
+}
+
+task(HelloWorld, type: JavaExec){
+    mainClass = 'echoserver.HelloWorld'
+    classpath = sourceSets.main.runtimeClasspath
+}
