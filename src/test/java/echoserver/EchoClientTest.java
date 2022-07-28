@@ -22,8 +22,8 @@ public class EchoClientTest {
         BufferedReader input =
                 new BufferedReader(new StringReader("ECHO THIS"));
         PrintWriter output = new PrintWriter(new StringWriter(), true);
-        MockClientSocket socket = new
-                MockClientSocket(output, input);
+        ClientSocketMock socket = new
+                ClientSocketMock(output, input);
 
         EchoClient echoClient = new EchoClient(socket);
         echoClient.start(host, 8080);
@@ -40,8 +40,8 @@ public class EchoClientTest {
         BufferedReader input =
                 new BufferedReader(new StringReader("ECHO THIS"));
         PrintWriter output = new PrintWriter(new StringWriter(), true);
-        MockClientSocket socket = new
-                MockClientSocket(output, input);
+        ClientSocketMock socket = new
+                ClientSocketMock(output, input);
 
         EchoClient echoClient = new EchoClient(socket);
         echoClient.start(host, 8080);

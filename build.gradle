@@ -45,7 +45,7 @@ task(HelloWorld, type: JavaExec){
 }
 
 task(runServer, type: JavaExec){
-    mainClass = 'echoserver.server.EchoServer'
+    mainClass = 'echoserver.server.ServerRunner'
     classpath = sourceSets.main.runtimeClasspath
     args  '8080'
 }
