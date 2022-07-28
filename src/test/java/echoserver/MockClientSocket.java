@@ -9,15 +9,15 @@ import java.net.InetAddress;
 
 public class MockClientSocket implements ClientSocketInterface {
 
-    private PrintWriter output;
-    private BufferedReader input;
-    private String dataSent;
-    private boolean connectionClosed = false;
-    private boolean createCalled = false;
+    public PrintWriter output;
+    public BufferedReader input;
+    public String dataSent;
+    public boolean connectionClosed = false;
+    public boolean createCalled = false;
 
-    public MockClientSocket(PrintWriter output, BufferedReader input) {
-        this.output = output;
-        this.input = input;
+    public MockClientSocket(PrintWriter writer, BufferedReader reader) {
+        this.output = writer;
+        this.input = reader;
     }
 
 

@@ -1,4 +1,5 @@
 package echoserver;
+
 import echoserver.client.EchoClient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,8 @@ public class EchoClientTest {
     @DisplayName("Test if connection was created and if data was echoed back.")
     public void testSendingDataAndEchoedData() throws UnknownHostException {
         InetAddress host = InetAddress.getByName("localhost");
-        BufferedReader input = new BufferedReader(new StringReader("ECHO THIS"));
+        BufferedReader input =
+                new BufferedReader(new StringReader("ECHO THIS"));
         PrintWriter output = new PrintWriter(new StringWriter(), true);
         MockClientSocket socket = new
                 MockClientSocket(output, input);
@@ -35,7 +37,8 @@ public class EchoClientTest {
     @DisplayName("Test if connection was closed.")
     public void testIfConnectionWasClosed() throws UnknownHostException {
         InetAddress host = InetAddress.getByName("localhost");
-        BufferedReader input = new BufferedReader(new StringReader("ECHO THIS"));
+        BufferedReader input =
+                new BufferedReader(new StringReader("ECHO THIS"));
         PrintWriter output = new PrintWriter(new StringWriter(), true);
         MockClientSocket socket = new
                 MockClientSocket(output, input);
@@ -46,7 +49,6 @@ public class EchoClientTest {
         assertTrue(socket.wasCreateCalled());
         assertTrue(socket.wasConnectionClosed());
     }
-
 
 
 }

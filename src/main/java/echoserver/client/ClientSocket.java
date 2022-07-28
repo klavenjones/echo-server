@@ -17,7 +17,8 @@ public class ClientSocket implements ClientSocketInterface {
     public void create(InetAddress address, int portNumber) {
         try {
             socket = new Socket(address, portNumber);
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            input = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -31,8 +32,8 @@ public class ClientSocket implements ClientSocketInterface {
         userInput = new BufferedReader(new InputStreamReader(System.in));
         try {
             return userInput.readLine();
-        } catch (IOException e){
-           e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -44,11 +45,11 @@ public class ClientSocket implements ClientSocketInterface {
 
     @Override
     public String receiveMessage() {
-        try{
+        try {
             String echo = input.readLine();
             System.out.println("Echo: " + echo);
             return echo;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

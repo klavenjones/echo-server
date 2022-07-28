@@ -9,7 +9,7 @@ public class ClientRunner {
         InetAddress host = InetAddress.getByName("localhost");
         int port = 8080;
 
-        if(args.length > 2){
+        if (args.length > 2) {
             host = InetAddress.getByName(args[0]);
             port = Integer.parseInt(args[1]);
         }
