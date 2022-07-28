@@ -9,7 +9,7 @@ version '1.0-SNAPSHOT'
 
 
 application {
-    mainClassName = 'echoserver.HelloWorld'
+    mainClassName = 'echoserver.EchoServer'
 }
 
 repositories {
@@ -43,3 +43,17 @@ task(HelloWorld, type: JavaExec){
     mainClass = 'echoserver.HelloWorld'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task(runServer, type: JavaExec){
+    mainClass = 'echoserver.server.EchoServer'
+    classpath = sourceSets.main.runtimeClasspath
+    args  '8080'
+}
+
+task(runClient, dependsOn: classes, type: JavaExec){
+    mainClass = 'echoserver.client.ClientRunner'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    args 'localhost', '8080'
+}
+
