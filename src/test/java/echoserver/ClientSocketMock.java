@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 
-public class MockClientSocket implements ClientSocketInterface {
+public class ClientSocketMock implements ClientSocketInterface {
 
     public PrintWriter output;
     public BufferedReader input;
@@ -15,7 +15,7 @@ public class MockClientSocket implements ClientSocketInterface {
     public boolean connectionClosed = false;
     public boolean createCalled = false;
 
-    public MockClientSocket(PrintWriter writer, BufferedReader reader) {
+    public ClientSocketMock(PrintWriter writer, BufferedReader reader) {
         this.output = writer;
         this.input = reader;
     }
