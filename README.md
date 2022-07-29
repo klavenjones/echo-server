@@ -70,7 +70,7 @@ Run the server
  ./gradle runClient
 ```
 
-The default port for the server and client is 8080, and the default hostname for the client is localhost. if you wish to override hostname and port, run the following commands:
+The default port for the server and client is 8080, and the default hostname for the client is localhost. If you wish to override hostname and port, run the following commands:
 
 ```
 ./gradlew runServer --args <port-number>
