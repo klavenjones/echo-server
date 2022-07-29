@@ -5,16 +5,11 @@ import echoserver.server.ServerSocketInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 
 public class ServerSocketMock implements ServerSocketInterface {
 
     public boolean connectionClosed = false;
-    public boolean serverCreated = false;
-    public boolean connectedToClient = false;
-
     public BufferedReader reader;
     public PrintWriter writer;
     public String dataSent;
@@ -25,18 +20,6 @@ public class ServerSocketMock implements ServerSocketInterface {
         this.writer = output;
     }
 
-
-    @Override
-    public ServerSocket createServerSocket(int port) throws IOException {
-        serverCreated = true;
-        return null;
-    }
-
-    @Override
-    public Socket connectToClient(ServerSocket socket) throws IOException {
-        connectedToClient = true;
-        return null;
-    }
 
     @Override
     public String receiveData() {
@@ -55,20 +38,12 @@ public class ServerSocketMock implements ServerSocketInterface {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         connectionClosed = true;
     }
 
     public boolean isConnectionClosed() {
         return connectionClosed;
-    }
-
-    public boolean isServerCreated() {
-        return serverCreated;
-    }
-
-    public boolean isConnectedToClient() {
-        return connectedToClient;
     }
 
 
