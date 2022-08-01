@@ -29,8 +29,8 @@ public class EchoServerTest {
 
 
     @Test
-    @DisplayName("Test to if the server sent the data")
-    public void testIfSocketisClosed() {
+    @DisplayName("Test to if the server connection is closed")
+    public void testIfSocketSentMessage() {
         PrintWriter writer = new PrintWriter(new StringWriter(), true);
         BufferedReader reader = new BufferedReader(new StringReader("Test"));
         ServerSocketMock socket = new ServerSocketMock(reader, writer);
@@ -38,6 +38,19 @@ public class EchoServerTest {
         EchoServer echoServer = new EchoServer(socket);
         echoServer.run();
 
-        assertTrue(socket.isConnectionClosed(), "Test");
+        assertTrue(socket.isConnectionClosed());
+    }
+
+    @Test
+    @DisplayName("Test to if the server received the data")
+    public void testIfServerReceivedData() {
+        PrintWriter writer = new PrintWriter(new StringWriter(), true);
+        BufferedReader reader = new BufferedReader(new StringReader("Test"));
+        ServerSocketMock socket = new ServerSocketMock(reader, writer);
+
+        EchoServer echoServer = new EchoServer(socket);
+        echoServer.run();
+
+        assertEquals(socket.receivedData, "Test");
     }
 }

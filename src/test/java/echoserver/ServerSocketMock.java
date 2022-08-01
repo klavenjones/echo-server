@@ -13,6 +13,7 @@ public class ServerSocketMock implements ServerSocketInterface {
     public BufferedReader reader;
     public PrintWriter writer;
     public String dataSent;
+    public  String receivedData;
 
 
     public ServerSocketMock(BufferedReader input, PrintWriter output) {
@@ -24,6 +25,8 @@ public class ServerSocketMock implements ServerSocketInterface {
     @Override
     public String receiveData() {
         try {
+            receivedData = reader.readLine();
+            dataSent = receivedData;
             return reader.readLine();
         } catch (IOException e) {
             System.err.println("Error with Input");
@@ -33,8 +36,8 @@ public class ServerSocketMock implements ServerSocketInterface {
 
     @Override
     public void sendData(String message) {
+        dataSent = receivedData;
         writer.write(message);
-        dataSent = message;
     }
 
     @Override
@@ -45,6 +48,5 @@ public class ServerSocketMock implements ServerSocketInterface {
     public boolean isConnectionClosed() {
         return connectionClosed;
     }
-
 
 }
