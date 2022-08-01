@@ -1,30 +1,26 @@
 package echoserver.server;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 
 
-public class EchoServer {
+
+public class EchoServer implements Runnable {
     private ServerSocketInterface socketWrapper;
 
     public EchoServer(ServerSocketInterface socket) {
         this.socketWrapper = socket;
     }
 
-    public void run(int portNumber) {
-        try {
-            ServerSocket serverSocket =
-                    socketWrapper.createServerSocket(portNumber);
-            socketWrapper.connectToClient(serverSocket);
 
+    public void run() {
+        try {
             String clientMessage;
             while ((clientMessage = socketWrapper.receiveData()) != null) {
                 socketWrapper.sendData(clientMessage);
             }
             socketWrapper.close();
         } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port "
-                    + portNumber + " or listening for a connection");
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }

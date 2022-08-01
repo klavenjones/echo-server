@@ -13,31 +13,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 public class EchoServerTest {
-    @Test
-    @DisplayName("Test whether the Socket was Created.")
-    public void testIfSocketCreated() {
-        PrintWriter writer = new PrintWriter(new StringWriter(), true);
-        BufferedReader reader = new BufferedReader(new StringReader("Test"));
-        ServerSocketMock socket = new ServerSocketMock(reader, writer);
-
-        EchoServer echoServer = new EchoServer(socket);
-        echoServer.run(8080);
-
-        assertTrue(socket.isServerCreated());
-    }
-
-    @Test
-    @DisplayName("Test to see if the server connected to client")
-    public void testIfConnectedToClient() {
-        PrintWriter writer = new PrintWriter(new StringWriter(), true);
-        BufferedReader reader = new BufferedReader(new StringReader("Test"));
-        ServerSocketMock socket = new ServerSocketMock(reader, writer);
-
-        EchoServer echoServer = new EchoServer(socket);
-        echoServer.run(8080);
-
-        assertTrue(socket.isConnectedToClient());
-    }
 
     @Test
     @DisplayName("Test to if the server sent the data")
@@ -47,22 +22,35 @@ public class EchoServerTest {
         ServerSocketMock socket = new ServerSocketMock(reader, writer);
 
         EchoServer echoServer = new EchoServer(socket);
-        echoServer.run(8080);
+        echoServer.run();
 
         assertEquals(socket.dataSent, "Test");
     }
 
 
     @Test
-    @DisplayName("Test to if the server sent the data")
-    public void testIfSocketisClosed() {
+    @DisplayName("Test to if the server connection is closed")
+    public void testIfSocketSentMessage() {
         PrintWriter writer = new PrintWriter(new StringWriter(), true);
         BufferedReader reader = new BufferedReader(new StringReader("Test"));
         ServerSocketMock socket = new ServerSocketMock(reader, writer);
 
         EchoServer echoServer = new EchoServer(socket);
-        echoServer.run(8080);
+        echoServer.run();
 
-        assertTrue(socket.isConnectionClosed(), "Test");
+        assertTrue(socket.isConnectionClosed());
+    }
+
+    @Test
+    @DisplayName("Test to if the server received the data")
+    public void testIfServerReceivedData() {
+        PrintWriter writer = new PrintWriter(new StringWriter(), true);
+        BufferedReader reader = new BufferedReader(new StringReader("Test"));
+        ServerSocketMock socket = new ServerSocketMock(reader, writer);
+
+        EchoServer echoServer = new EchoServer(socket);
+        echoServer.run();
+
+        assertEquals(socket.receivedData, "Test");
     }
 }

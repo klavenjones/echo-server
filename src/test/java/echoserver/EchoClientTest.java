@@ -28,8 +28,22 @@ public class EchoClientTest {
         EchoClient echoClient = new EchoClient(socket);
         echoClient.start(host, 8080);
 
-        assertTrue(socket.wasCreateCalled());
         assertEquals("ECHO THIS", socket.receiveMessage());
+    }
+    @Test
+    @DisplayName("Test if Client Socket's created function was called")
+    public void testIfCreatedFunctionWasCalled() throws UnknownHostException {
+        InetAddress host = InetAddress.getByName("localhost");
+        BufferedReader input =
+                new BufferedReader(new StringReader("ECHO THIS"));
+        PrintWriter output = new PrintWriter(new StringWriter(), true);
+        ClientSocketMock socket = new
+                ClientSocketMock(output, input);
+
+        EchoClient echoClient = new EchoClient(socket);
+        echoClient.start(host, 8080);
+
+        assertTrue(socket.wasCreateCalled());
     }
 
 
@@ -46,7 +60,6 @@ public class EchoClientTest {
         EchoClient echoClient = new EchoClient(socket);
         echoClient.start(host, 8080);
 
-        assertTrue(socket.wasCreateCalled());
         assertTrue(socket.wasConnectionClosed());
     }
 

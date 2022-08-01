@@ -14,25 +14,11 @@ public class ServerSocketWrapper implements ServerSocketInterface {
     BufferedReader input;
     PrintWriter output;
 
-    @Override
-    public ServerSocket createServerSocket(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
-        System.out.println("Server Listening on port " + port);
-        return serverSocket;
-    }
-
-    @Override
-    public Socket connectToClient(ServerSocket socket)
-            throws IOException {
-        try {
-
-            clientSocket = socket.accept();
-            System.out.println("Client Connected");
-            createIOStream();
-        } catch (IOException e) {
-            System.out.println("Connection not successful");
-        }
-        return clientSocket;
+    public ServerSocketWrapper(Socket socket) throws IOException {
+        this.clientSocket = socket;
+        this.input = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+        this.output = new PrintWriter(socket.getOutputStream(), true);
     }
 
     @Override
@@ -60,9 +46,4 @@ public class ServerSocketWrapper implements ServerSocketInterface {
         serverSocket.close();
     }
 
-    public void createIOStream() throws IOException {
-        input = new BufferedReader(
-                new InputStreamReader(clientSocket.getInputStream()));
-        output = new PrintWriter(clientSocket.getOutputStream(), true);
-    }
 }

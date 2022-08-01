@@ -5,19 +5,15 @@ import echoserver.server.ServerSocketInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 
 public class ServerSocketMock implements ServerSocketInterface {
 
     public boolean connectionClosed = false;
-    public boolean serverCreated = false;
-    public boolean connectedToClient = false;
-
     public BufferedReader reader;
     public PrintWriter writer;
     public String dataSent;
+    public  String receivedData;
 
 
     public ServerSocketMock(BufferedReader input, PrintWriter output) {
@@ -27,20 +23,10 @@ public class ServerSocketMock implements ServerSocketInterface {
 
 
     @Override
-    public ServerSocket createServerSocket(int port) throws IOException {
-        serverCreated = true;
-        return null;
-    }
-
-    @Override
-    public Socket connectToClient(ServerSocket socket) throws IOException {
-        connectedToClient = true;
-        return null;
-    }
-
-    @Override
     public String receiveData() {
         try {
+            receivedData = reader.readLine();
+            dataSent = receivedData;
             return reader.readLine();
         } catch (IOException e) {
             System.err.println("Error with Input");
@@ -50,26 +36,17 @@ public class ServerSocketMock implements ServerSocketInterface {
 
     @Override
     public void sendData(String message) {
+        dataSent = receivedData;
         writer.write(message);
-        dataSent = message;
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         connectionClosed = true;
     }
 
     public boolean isConnectionClosed() {
         return connectionClosed;
     }
-
-    public boolean isServerCreated() {
-        return serverCreated;
-    }
-
-    public boolean isConnectedToClient() {
-        return connectedToClient;
-    }
-
 
 }
